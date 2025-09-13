@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CyberSec CTF Certificate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0f12;
+    --accent:#39ff14;
+    --accent-soft:#2ddf92;
+    --highlight:#ff2d55;
+    --ink:#e6edf3;
+    --muted:#a8b3bd;
+    --line:#20303f;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background: radial-gradient(1200px 800px at 50% -10%, #13202b 0%, var(--bg) 60%) fixed, var(--bg);
+    color:var(--ink);
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .wrap{width:100%; max-width:1100px}
+  .toolbar{display:flex; gap:12px; justify-content:flex-end; margin-bottom:12px;}
+  button{appearance:none; border:1px solid var(--line); background:#0f141a;
+    color:var(--ink); padding:10px 14px; border-radius:10px; font-weight:600; cursor:pointer;}
+  button:hover{border-color:#2b3f52; box-shadow:0 0 0 3px rgba(57,255,20,.15)}
+  .canvas{position:relative; background:linear-gradient(180deg,#0c1116,#0a0e12 70%);
+    border:1px solid var(--line); border-radius:18px; padding:60px 68px;
+    box-shadow:0 0 0 1px rgba(57,255,20,.08) inset,0 10px 30px rgba(0,0,0,.45),0 0 140px rgba(57,255,20,.05) inset;}
+  .header{text-align:center; margin-bottom:34px;}
+  .kicker{font-family:"IBM Plex Mono", monospace; color:var(--muted); letter-spacing:.18em; text-transform:uppercase; font-size:12px;}
+  .title{margin-top:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:44px; color:var(--ink);}
+  .title .accent{color:var(--accent)}
+  .rule{height:2px; width:70%; margin:16px auto 0; background:linear-gradient(90deg, transparent, var(--accent-soft), transparent);}
+  .subtitle{text-align:center; margin:28px 0 8px; color:var(--muted); font-size:18px;}
+  .name{text-align:center; font-size:40px; font-weight:800; color:var(--accent);}
+  .program{text-align:center; font-size:28px; font-weight:800; color:var(--highlight);}
+  .section{margin:38px 0 10px; text-align:center;}
+  .section h3{display:inline-block; padding:6px 12px; border:1px solid #224d37; border-radius:999px;
+    font-family:"IBM Plex Mono", monospace; color:#bfffd8; font-size:13px; text-transform:uppercase;}
+  .skills{display:grid; grid-template-columns:repeat(2, minmax(240px, 1fr)); gap:10px 28px; max-width:760px; margin:18px auto 0;}
+  .skills div{color:#d5fbe7; border-left:3px solid rgba(57,255,20,.6); padding-left:10px}
+  .badge{margin:22px auto 0; width:max-content; padding:10px 14px; border:1px solid #2b3f52; border-radius:10px;
+    color:#cfe7ff; font-family:"IBM Plex Mono", monospace; font-size:13px; text-transform:uppercase;}
+  .meta{margin-top:34px; display:flex; justify-content:space-between; align-items:flex-end; border-top:1px dashed #294a38; padding-top:18px;}
+  .sig{text-align:right;}
+  .sig .line{margin-top:52px; height:1px; background:linear-gradient(90deg, transparent, #3f5a6a, transparent);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar">
+      <button class="btn-accent" id="btnPng">Download PNG</button>
+      <button class="btn-primary" id="btnPdf">Download PDF</button>
+    </div>
+
+    <section id="certificate" class="canvas">
+      <header class="header">
+        <div class="kicker">Official Recognition</div>
+        <div class="title"><span class="accent"></span>Certificate of Achievement</div>
+        <div class="rule"></div>
+      </header>
+
+      <div class="subtitle">This certifies that</div>
+      <div class="name" id="certName">ANIKET TEGGINAMATH</div>
+      <div class="subtitle">has successfully completed the</div>
+      <div class="program">CYBERSEC CTF CHALLENGE 2025</div>
+
+      <div class="section"><h3>Demonstrated Skills</h3></div>
+      <div class="skills">
+        <div>HTML Source Analysis</div>
+        <div>Web Reconnaissance</div>
+        <div>Base64 Decoding</div>
+        <div>Classical Cryptography</div>
+        <div>Security Knowledge</div>
+      </div>
+
+      <div class="badge">Security Clearance: Granted</div>
+
+      <div class="meta">
+        <div>
+          <div><strong>Issued:</strong> September 14, 2025</div>
+          <div><strong>Credential ID:</strong> <span id="credId"></span></div>
+        </div>
+          <div style="text-align:right;">
+            <div style="color:#bfffd8; font-weight:700; font-size:18px;">Aniket Tegginamath</div>
+            <div style="height:2px; width:180px; background:#fff; margin:8px 0 8px auto; border-radius:2px;"></div>
+            <div style="color:#b8c7d4; font-size:14px; font-weight:600; text-align:center;">CTF Administrator</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script>
+    // Generate random Credential ID
+    function generateCredentialId() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let randomPart = "";
+      for (let i = 0; i < 5; i++) {
+        randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return "CTF-2025-AT-" + randomPart;
+    }
+    document.getElementById("credId").textContent = generateCredentialId();
+
+    async function downloadPNG(){
+      const node = document.getElementById('certificate');
+      const canvas = await html2canvas(node, {backgroundColor: null, scale: 2});
+      const dataURL = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = 'Certificate.png';
+      a.click();
+    }
+    async function downloadPDF(){
+      const node = document.getElementById('certificate');
+      const canvas = await html2canvas(node, {backgroundColor: '#0a0e12', scale: 2});
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({orientation:'landscape', unit:'pt', format:'a4'});
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
+      const w = canvas.width * ratio;
+      const h = canvas.height * ratio;
+      const x = (pageW - w) / 2;
+      const y = (pageH - h) / 2;
+      pdf.addImage(imgData, 'PNG', x, y, w, h);
+      pdf.save('Certificate.pdf');
+    }
+    document.getElementById('btnPng').addEventListener('click', downloadPNG);
+    document.getElementById('btnPdf').addEventListener('click', downloadPDF);
+  </script>
+</body>
+</html>
