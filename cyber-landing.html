@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberMatrix CTF - Enter the Digital Underground</title>
+    <link rel="stylesheet" href="cyber-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@300;400;600&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <div class="matrix-rain">
+        <canvas id="matrix-canvas"></canvas>
+    </div>
+
+    <!-- Particle System -->
+    <div class="particle-system" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-skull-crossbones cyber-icon"></i>
+                <span class="brand-text">CYBER<span class="matrix-text">MATRIX</span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">HOME</a></li>
+                <li><a href="#challenges" class="nav-link">CHALLENGES</a></li>
+                <li><a href="#leaderboard" class="nav-link">LEADERBOARD</a></li>
+                <li><a href="#arsenal" class="nav-link">ARSENAL</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="glitch-overlay"></div>
+        <div class="hero-content">
+            <!-- Terminal Window -->
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="control close"></span>
+                        <span class="control minimize"></span>
+                        <span class="control maximize"></span>
+                    </div>
+                    <span class="terminal-title">root@cybermatrix:~$</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">┌─[root@matrix]─[~]</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">└──╼ $</span>
+                        <span class="command typing-text">./initialize_matrix.sh</span>
+                    </div>
+                    <div class="terminal-line output-line">
+                        <span class="output">[<span class="green">+</span>] LOADING CYBER MATRIX...</span>
+                    </div>
+                    <div class="terminal-line output-line">
+                        <span class="output">[<span class="yellow">!</span>] TARGET: <span id="glitch-word">CYBERSECURITY</span></span>
+                    </div>
+                    <div class="terminal-line output-line">
+                        <span class="output">[<span class="green">✓</span>] MATRIX INITIALIZED</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Title -->
+            <div class="hero-title">
+                <h1 class="glitch-text" data-text="ENTER THE MATRIX">
+                    ENTER THE MATRIX
+                </h1>
+                <div class="subtitle">
+                    <span class="typewriter">Welcome to the Digital Underground</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="hero-actions">
+                <button class="cyber-btn primary">
+                    <i class="fas fa-rocket"></i>
+                    <span>INITIATE HACK</span>
+                    <div class="btn-glitch"></div>
+                </button>
+                <button class="cyber-btn secondary">
+                    <i class="fas fa-terminal"></i>
+                    <span>ACCESS TERMINAL</span>
+                    <div class="btn-glitch"></div>
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users-slash"></i></div>
+                    <div class="stat-number" data-target="1337">0</div>
+                    <div class="stat-label">ACTIVE HACKERS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-flag"></i></div>
+                    <div class="stat-number" data-target="666">0</div>
+                    <div class="stat-label">FLAGS CAPTURED</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-server"></i></div>
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">SYSTEMS BREACHED</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Categories -->
+    <section id="challenges" class="challenges-section">
+        <div class="section-container">
+            <h2 class="section-title">
+                <span class="glitch-text" data-text="CHALLENGE MATRIX">CHALLENGE MATRIX</span>
+            </h2>
+            
+            <div class="challenges-grid">
+                <!-- Web Exploitation -->
+                <div class="challenge-card">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>WEB EXPLOITATION</h3>
+                        <div class="difficulty-badge expert">EXPERT</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Exploit web vulnerabilities including SQL injection, XSS, CSRF, and advanced attack vectors.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-trophy"></i> 15 Challenges</span>
+                            <span><i class="fas fa-clock"></i> 2-6 Hours</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="challenge-btn">
+                            <span>HACK NOW</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cryptography -->
+                <div class="challenge-card">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>CRYPTOGRAPHY</h3>
+                        <div class="difficulty-badge hard">HARD</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Break encryption algorithms, decode ciphers, and master the art of cryptanalysis.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-trophy"></i> 12 Challenges</span>
+                            <span><i class="fas fa-clock"></i> 1-4 Hours</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="challenge-btn">
+                            <span>DECRYPT</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Binary Exploitation -->
+                <div class="challenge-card">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3>BINARY EXPLOIT</h3>
+                        <div class="difficulty-badge expert">EXPERT</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Buffer overflows, ROP chains, format string attacks, and advanced binary exploitation.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-trophy"></i> 18 Challenges</span>
+                            <span><i class="fas fa-clock"></i> 3-8 Hours</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="challenge-btn">
+                            <span>EXPLOIT</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Digital Forensics -->
+                <div class="challenge-card">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>FORENSICS</h3>
+                        <div class="difficulty-badge medium">MEDIUM</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Digital investigation, memory dumps, steganography, and evidence analysis.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-trophy"></i> 10 Challenges</span>
+                            <span><i class="fas fa-clock"></i> 1-3 Hours</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="challenge-btn">
+                            <span>INVESTIGATE</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Reverse Engineering -->
+                <div class="challenge-card">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>REVERSE ENG</h3>
+                        <div class="difficulty-badge expert">EXPERT</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Disassemble binaries, analyze malware, crack software protection mechanisms.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-trophy"></i> 14 Challenges</span>
+                            <span><i class="fas fa-clock"></i> 2-6 Hours</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="challenge-btn">
+                            <span>REVERSE</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Network Security -->
+                <div class="challenge-card">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>NETWORK SEC</h3>
+                        <div class="difficulty-badge hard">HARD</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Packet analysis, network protocols, traffic inspection, and wireless security.</p>
+                        <div class="challenge-stats">
+                            <span><i class="fas fa-trophy"></i> 11 Challenges</span>
+                            <span><i class="fas fa-clock"></i> 1-4 Hours</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="challenge-btn">
+                            <span>ANALYZE</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><i class="fas fa-skull-crossbones"></i> CYBERMATRIX</h3>
+                <p>Elite cybersecurity training ground for the next generation of ethical hackers.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>QUICK LINKS</h4>
+                <ul>
+                    <li><a href="#challenges">Challenges</a></li>
+                    <li><a href="#leaderboard">Leaderboard</a></li>
+                    <li><a href="#arsenal">Arsenal</a></li>
+                    <li><a href="#docs">Documentation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>RESOURCES</h4>
+                <ul>
+                    <li><a href="#writeups">Write-ups</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#tutorials">Tutorials</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 CyberMatrix CTF. All rights reserved. | <span class="warning">HACK RESPONSIBLY</span></p>
+            <p class="disclaimer">For educational and authorized testing purposes only.</p>
+        </div>
+    </footer>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-content">
+            <div class="loader-icon">
+                <i class="fas fa-skull-crossbones"></i>
+            </div>
+            <div class="loader-text">
+                <span class="glitch-text" data-text="BREACHING MATRIX">BREACHING MATRIX</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="loading-percent">0%</div>
+            <div class="loading-status">Initializing neural pathways...</div>
+        </div>
+    </div>
+
+    <script src="cyber-effects.js"></script>
+</body>
+</html>
