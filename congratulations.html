@@ -380,89 +380,203 @@
             const canvas = document.getElementById('certificateCanvas');
             const ctx = canvas.getContext('2d');
             
-            // Background
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#fff');
-            gradient.addColorStop(1, '#f8f9fa');
-            ctx.fillStyle = gradient;
+            // Dark cyber background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            bgGradient.addColorStop(0, '#0a0e27');
+            bgGradient.addColorStop(0.5, '#1a1f3a');
+            bgGradient.addColorStop(1, '#0a0e27');
+            ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Border
-            ctx.strokeStyle = '#ffd700';
-            ctx.lineWidth = 10;
-            ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+            // Add cyber grid pattern
+            ctx.strokeStyle = 'rgba(102, 126, 234, 0.1)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < canvas.width; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            for (let i = 0; i < canvas.height; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.stroke();
+            }
             
-            // Inner border
-            ctx.strokeStyle = '#667eea';
-            ctx.lineWidth = 3;
-            ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+            // Glowing border effect
+            ctx.shadowColor = '#00ff00';
+            ctx.shadowBlur = 20;
+            const borderGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            borderGradient.addColorStop(0, '#00ff00');
+            borderGradient.addColorStop(0.25, '#00ffff');
+            borderGradient.addColorStop(0.5, '#667eea');
+            borderGradient.addColorStop(0.75, '#764ba2');
+            borderGradient.addColorStop(1, '#00ff00');
+            ctx.strokeStyle = borderGradient;
+            ctx.lineWidth = 4;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
             
-            // Title
-            ctx.fillStyle = '#333';
-            ctx.font = 'bold 48px Arial';
+            // Inner neon border
+            ctx.shadowBlur = 10;
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+            ctx.shadowBlur = 0;
+            
+            // Add terminal-style header
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 20px "Courier New", monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText('> SYSTEM: CERTIFICATION_PROTOCOL_INITIATED', 80, 90);
+            ctx.fillText('> STATUS: VERIFIED_COMPLETION', 80, 115);
+            
+            // Trophy/Flag icons on sides
+            ctx.font = '60px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('Certificate of Achievement', canvas.width / 2, 150);
+            ctx.fillText('🚩', 150, 180);
+            ctx.fillText('🏆', canvas.width - 150, 180);
+            ctx.fillText('🚩', 150, canvas.height - 120);
+            ctx.fillText('🏆', canvas.width - 150, canvas.height - 120);
+            
+            // Main title with glow effect
+            ctx.textAlign = 'center';
+            ctx.shadowColor = '#00ffff';
+            ctx.shadowBlur = 15;
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 52px "Arial Black", sans-serif';
+            ctx.fillText('CERTIFICATE OF ACHIEVEMENT', canvas.width / 2, 170);
+            
+            // Cyber decorative line
+            ctx.shadowBlur = 0;
+            const lineGradient = ctx.createLinearGradient(200, 0, canvas.width - 200, 0);
+            lineGradient.addColorStop(0, 'transparent');
+            lineGradient.addColorStop(0.2, '#00ffff');
+            lineGradient.addColorStop(0.5, '#667eea');
+            lineGradient.addColorStop(0.8, '#00ffff');
+            lineGradient.addColorStop(1, 'transparent');
+            ctx.strokeStyle = lineGradient;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(200, 195);
+            ctx.lineTo(canvas.width - 200, 195);
+            ctx.stroke();
             
             // Subtitle
-            ctx.font = '24px Arial';
-            ctx.fillStyle = '#666';
-            ctx.fillText('This certifies that', canvas.width / 2, 220);
+            ctx.fillStyle = '#a0a0ff';
+            ctx.font = '26px "Segoe UI", sans-serif';
+            ctx.fillText('This certifies that', canvas.width / 2, 250);
             
-            // Name
-            ctx.font = 'bold 56px Arial';
-            ctx.fillStyle = '#667eea';
-            ctx.fillText(name, canvas.width / 2, 300);
+            // Name with neon glow
+            ctx.shadowColor = '#667eea';
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 64px "Arial Black", sans-serif';
+            ctx.fillText(name.toUpperCase(), canvas.width / 2, 320);
+            ctx.shadowBlur = 0;
             
             // Achievement text
-            ctx.font = '24px Arial';
-            ctx.fillStyle = '#666';
-            ctx.fillText('has successfully completed the', canvas.width / 2, 370);
+            ctx.fillStyle = '#a0a0ff';
+            ctx.font = '26px "Segoe UI", sans-serif';
+            ctx.fillText('has successfully completed the', canvas.width / 2, 380);
             
-            // Challenge name
-            ctx.font = 'bold 40px Arial';
-            ctx.fillStyle = '#764ba2';
-            ctx.fillText('Mini CTF Challenge', canvas.width / 2, 430);
+            // Challenge name with gradient
+            ctx.shadowColor = '#764ba2';
+            ctx.shadowBlur = 15;
+            const titleGradient = ctx.createLinearGradient(0, 420, 0, 460);
+            titleGradient.addColorStop(0, '#667eea');
+            titleGradient.addColorStop(0.5, '#764ba2');
+            titleGradient.addColorStop(1, '#667eea');
+            ctx.fillStyle = titleGradient;
+            ctx.font = 'bold 48px "Arial Black", sans-serif';
+            ctx.fillText('MINI CTF CHALLENGE 2024', canvas.width / 2, 440);
+            ctx.shadowBlur = 0;
             
-            // Skills
-            ctx.font = '20px Arial';
-            ctx.fillStyle = '#555';
-            ctx.fillText('Demonstrating proficiency in:', canvas.width / 2, 500);
+            // Terminal-style skills section
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 22px "Courier New", monospace';
+            ctx.fillText('[ DEMONSTRATED SKILLS ]', canvas.width / 2, 500);
             
+            // Skills in cyber style
             const skills = [
-                '✓ HTML Source Analysis',
-                '✓ Web Reconnaissance',
-                '✓ Base64 Decoding',
-                '✓ Classical Cryptography',
-                '✓ Security Knowledge'
+                '[✓] HTML_SOURCE_ANALYSIS',
+                '[✓] WEB_RECONNAISSANCE',
+                '[✓] BASE64_DECODING',
+                '[✓] CLASSICAL_CRYPTOGRAPHY',
+                '[✓] SECURITY_KNOWLEDGE'
             ];
             
+            ctx.font = '18px "Courier New", monospace';
+            ctx.fillStyle = '#00ffaa';
             let yPos = 540;
-            skills.forEach(skill => {
-                ctx.fillText(skill, canvas.width / 2, yPos);
-                yPos += 30;
+            skills.forEach((skill, index) => {
+                // Add typing effect appearance
+                const xOffset = Math.sin(index) * 20;
+                ctx.fillText(skill, canvas.width / 2 + xOffset, yPos);
+                yPos += 28;
             });
             
-            // Date
-            ctx.font = '18px Arial';
-            ctx.fillStyle = '#666';
+            // Security badges/icons
+            ctx.font = '30px Arial';
+            ctx.fillText('🔐', canvas.width / 2 - 150, 710);
+            ctx.fillText('💻', canvas.width / 2 - 75, 710);
+            ctx.fillText('🛡️', canvas.width / 2, 710);
+            ctx.fillText('🔍', canvas.width / 2 + 75, 710);
+            ctx.fillText('🎯', canvas.width / 2 + 150, 710);
+            
+            // Date in cyber style
+            ctx.fillStyle = '#667eea';
+            ctx.font = '16px "Courier New", monospace';
             const date = new Date().toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             });
-            ctx.fillText(`Issued on: ${date}`, canvas.width / 2, 750);
+            ctx.fillText(`TIMESTAMP: ${date.toUpperCase()}`, canvas.width / 2, 760);
             
-            // Signature line
-            ctx.strokeStyle = '#999';
-            ctx.lineWidth = 1;
+            // Digital signature section
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
             ctx.beginPath();
-            ctx.moveTo(canvas.width / 2 - 150, 800);
-            ctx.lineTo(canvas.width / 2 + 150, 800);
+            ctx.moveTo(canvas.width / 2 - 150, 790);
+            ctx.lineTo(canvas.width / 2 + 150, 790);
             ctx.stroke();
+            ctx.setLineDash([]);
             
-            ctx.font = '16px Arial';
-            ctx.fillStyle = '#999';
-            ctx.fillText('CTF Administrator', canvas.width / 2, 820);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = '14px "Courier New", monospace';
+            ctx.fillText('[ DIGITALLY SIGNED ]', canvas.width / 2, 810);
+            ctx.fillStyle = '#667eea';
+            ctx.fillText('CTF_ADMINISTRATOR', canvas.width / 2, 830);
+            
+            // Add corner decorations
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 3;
+            // Top-left corner
+            ctx.beginPath();
+            ctx.moveTo(30, 60);
+            ctx.lineTo(30, 30);
+            ctx.lineTo(60, 30);
+            ctx.stroke();
+            // Top-right corner
+            ctx.beginPath();
+            ctx.moveTo(canvas.width - 30, 60);
+            ctx.lineTo(canvas.width - 30, 30);
+            ctx.lineTo(canvas.width - 60, 30);
+            ctx.stroke();
+            // Bottom-left corner
+            ctx.beginPath();
+            ctx.moveTo(30, canvas.height - 60);
+            ctx.lineTo(30, canvas.height - 30);
+            ctx.lineTo(60, canvas.height - 30);
+            ctx.stroke();
+            // Bottom-right corner
+            ctx.beginPath();
+            ctx.moveTo(canvas.width - 30, canvas.height - 60);
+            ctx.lineTo(canvas.width - 30, canvas.height - 30);
+            ctx.lineTo(canvas.width - 60, canvas.height - 30);
+            ctx.stroke();
         }
         
         function downloadCertificate() {
