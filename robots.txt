@@ -1,0 +1,11 @@
+# robots.txt for Mini CTF Challenge
+# This file tells search engine crawlers which pages or files the crawler can or can't request
+
+User-agent: *
+Disallow: /secret_base64_challenge.html
+Disallow: /admin/
+Disallow: /backup/
+
+# FLAG{r0b0ts_txt_h1d3s_s3cr3ts}
+# Nice find! Robots.txt files can reveal interesting directories
+# Maybe you should check out that secret_base64_challenge.html page...

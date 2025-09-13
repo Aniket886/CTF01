@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 4: Caesar's Secret</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏛️ Challenge 4: Caesar Cipher 🏛️</h1>
+        </header>
+
+        <main>
+            <div class="challenge-box">
+                <h2>Ancient Cryptography</h2>
+                <p>Excellent work with Base64! Now let's travel back in time...</p>
+                <p>Julius Caesar used one of the earliest known ciphers to protect his military communications.</p>
+                <p>The Caesar cipher shifts each letter by a fixed number of positions in the alphabet.</p>
+                
+                <div class="encoded-box">
+                    <h3>Encrypted Message (ROT13):</h3>
+                    <code class="caesar">
+                        SYNT{pnrfne_pvcure_vf_2000_lrnef_byq}
+                    </code>
+                    <p class="hint">Hint: ROT13 means each letter is rotated by 13 positions</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>How Caesar Cipher Works:</h3>
+                    <ul>
+                        <li>A becomes B (shift of 1)</li>
+                        <li>A becomes C (shift of 2)</li>
+                        <li>A becomes N (shift of 13 - ROT13)</li>
+                        <li>At the end of alphabet, it wraps around: Z becomes A (shift of 1)</li>
+                    </ul>
+                </div>
+
+                <div class="hint-box">
+                    <h3>Another Message to Decode:</h3>
+                    <code>Wkh qhaw fkdoohqjh lv d wulyld txhvwlrq. Ylvlw /wulyld_fkdoohqjh.kwpo</code>
+                    <p>Hint: This one uses a shift of 3</p>
+                </div>
+            </div>
+
+            <div class="challenge-box">
+                <h2>Interactive Caesar Cipher Tool</h2>
+                <p>Use this tool to practice encoding and decoding Caesar ciphers:</p>
+                
+                <textarea id="caesarInput" placeholder="Enter text to encode/decode" rows="3"></textarea>
+                <br>
+                <label for="shift">Shift amount (1-25): </label>
+                <input type="number" id="shift" min="1" max="25" value="13">
+                <br><br>
+                <button onclick="caesarEncode()">Encode</button>
+                <button onclick="caesarDecode()">Decode</button>
+                <button onclick="bruteForce()">Brute Force (Try All Shifts)</button>
+                <br>
+                <div id="caesarOutput" class="output-box"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Fun Fact: ROT13 is its own inverse - applying it twice gives you the original text!</p>
+        </footer>
+    </div>
+
+    <script>
+        function caesarShift(text, shift) {
+            return text.replace(/[a-zA-Z]/g, function(char) {
+                const start = char <= 'Z' ? 65 : 97;
+                return String.fromCharCode((char.charCodeAt(0) - start + shift) % 26 + start);
+            });
+        }
+
+        function caesarEncode() {
+            const input = document.getElementById('caesarInput').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            const encoded = caesarShift(input, shift);
+            document.getElementById('caesarOutput').innerHTML = `<strong>Encoded (shift ${shift}):</strong><br>${encoded}`;
+        }
+
+        function caesarDecode() {
+            const input = document.getElementById('caesarInput').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            const decoded = caesarShift(input, 26 - shift);
+            document.getElementById('caesarOutput').innerHTML = `<strong>Decoded (shift ${shift}):</strong><br>${decoded}`;
+        }
+
+        function bruteForce() {
+            const input = document.getElementById('caesarInput').value;
+            let output = '<strong>All possible shifts:</strong><br>';
+            for (let i = 1; i <= 25; i++) {
+                const decoded = caesarShift(input, 26 - i);
+                output += `Shift ${i}: ${decoded}<br>`;
+            }
+            document.getElementById('caesarOutput').innerHTML = output;
+        }
+    </script>
+</body>
+</html>

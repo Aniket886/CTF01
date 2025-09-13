@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 5: Knowledge Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Challenge 5: Cybersecurity Trivia 🧠</h1>
+        </header>
+
+        <main>
+            <div class="challenge-box">
+                <h2>Test Your Knowledge</h2>
+                <p>Great job with the Caesar cipher! For your final challenge, let's test your cybersecurity knowledge.</p>
+                <p>Answer all questions correctly to reveal the final flag!</p>
+                
+                <div id="quiz-container">
+                    <div class="question">
+                        <h3>Question 1:</h3>
+                        <p>What does "CTF" stand for in cybersecurity competitions?</p>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> Cyber Threat Framework</label><br>
+                            <label><input type="radio" name="q1" value="b"> Capture The Flag</label><br>
+                            <label><input type="radio" name="q1" value="c"> Computer Testing Facility</label><br>
+                            <label><input type="radio" name="q1" value="d"> Cryptographic Transfer Function</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>Question 2:</h3>
+                        <p>Which port is commonly used for HTTPS traffic?</p>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> 80</label><br>
+                            <label><input type="radio" name="q2" value="b"> 443</label><br>
+                            <label><input type="radio" name="q2" value="c"> 22</label><br>
+                            <label><input type="radio" name="q2" value="d"> 3389</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>Question 3:</h3>
+                        <p>What type of attack involves tricking users into revealing sensitive information?</p>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> DDoS Attack</label><br>
+                            <label><input type="radio" name="q3" value="b"> Buffer Overflow</label><br>
+                            <label><input type="radio" name="q3" value="c"> Phishing</label><br>
+                            <label><input type="radio" name="q3" value="d"> SQL Injection</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>Question 4:</h3>
+                        <p>In Linux, which command is used to change file permissions?</p>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="a"> chown</label><br>
+                            <label><input type="radio" name="q4" value="b"> chmod</label><br>
+                            <label><input type="radio" name="q4" value="c"> passwd</label><br>
+                            <label><input type="radio" name="q4" value="d"> sudo</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>Question 5:</h3>
+                        <p>What does XSS stand for in web security?</p>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="a"> Extra Secure Socket</label><br>
+                            <label><input type="radio" name="q5" value="b"> Cross-Site Scripting</label><br>
+                            <label><input type="radio" name="q5" value="c"> XML Security Standard</label><br>
+                            <label><input type="radio" name="q5" value="d"> Extended System Security</label>
+                        </div>
+                    </div>
+
+                    <button onclick="checkAnswers()" class="submit-btn">Submit Answers</button>
+                </div>
+
+                <div id="result" class="result-box" style="display: none;"></div>
+            </div>
+
+            <div class="hint-box">
+                <h3>Stuck?</h3>
+                <p>These are fundamental cybersecurity concepts. Try researching:</p>
+                <ul>
+                    <li>Common network ports and protocols</li>
+                    <li>Basic Linux commands</li>
+                    <li>Web application vulnerabilities (OWASP Top 10)</li>
+                    <li>Social engineering techniques</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <p>Learning is the key to becoming a better security professional!</p>
+        </footer>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = {
+                q1: 'b',  // Capture The Flag
+                q2: 'b',  // 443
+                q3: 'c',  // Phishing
+                q4: 'b',  // chmod
+                q5: 'b'   // Cross-Site Scripting
+            };
+
+            let allCorrect = true;
+            let score = 0;
+
+            for (let question in correctAnswers) {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                if (selected && selected.value === correctAnswers[question]) {
+                    score++;
+                } else {
+                    allCorrect = false;
+                }
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            if (allCorrect) {
+                resultDiv.innerHTML = `
+                    <h2>🎉 Congratulations! 🎉</h2>
+                    <p>You answered all questions correctly!</p>
+                    <p>Your final flag is: <strong>FLAG{m4st3r_0f_cyb3rs3cur1ty_tr1v1a}</strong></p>
+                    <p>You've completed all 5 challenges! Great job!</p>
+                    <br>
+                    <h3>All Flags Collected:</h3>
+                    <ol>
+                        <li>FLAG{html_c0mments_r3v3al_s3cr3ts}</li>
+                        <li>FLAG{r0b0ts_txt_h1d3s_s3cr3ts}</li>
+                        <li>FLAG{base64_is_n0t_encrypti0n}</li>
+                        <li>FLAG{caesar_cipher_is_2000_years_old}</li>
+                        <li>FLAG{m4st3r_0f_cyb3rs3cur1ty_tr1v1a}</li>
+                    </ol>
+                    <br>
+                    <p><a href="congratulations.html">Continue to final page →</a></p>
+                `;
+                resultDiv.className = 'result-box success';
+            } else {
+                resultDiv.innerHTML = `
+                    <h3>Not quite right!</h3>
+                    <p>You got ${score} out of 5 questions correct.</p>
+                    <p>Review your answers and try again!</p>
+                `;
+                resultDiv.className = 'result-box error';
+            }
+
+            // Scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
