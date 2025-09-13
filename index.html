@@ -3,58 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini CTF Challenge - Start Here!</title>
+    <title>CyberSec CTF - Ethical Hacking Arena</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-canvas"></canvas>
     <div class="container">
         <header>
-            <h1>🚩 Welcome to Mini CTF 🚩</h1>
-            <p class="subtitle">A beginner-friendly Capture The Flag challenge</p>
+            <div class="header-content">
+                <div class="cyber-logo">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <span class="matrix-text" id="rotating-text">CYBERSECURITY</span>
+                </div>
+                <h1 class="glitch-title" data-text="WELCOME TO CYBER CTF">🚩 WELCOME TO CYBER CTF 🚩</h1>
+                <p class="subtitle">Enter the Digital Underground - Ethical Hacking Arena</p>
+                <div class="terminal-prompt">
+                    <span class="prompt">root@cybersec:~$</span>
+                    <span class="typing-text">./initialize_ctf.sh</span>
+                </div>
+            </div>
         </header>
 
         <main>
-            <div class="challenge-box">
-                <h2>Your Mission</h2>
-                <p>Welcome, cyber warrior! Your mission is to find all 5 flags hidden throughout this website.</p>
-                <p>Each flag follows the format: <code>FLAG{some_text_here}</code></p>
-                
-                <div class="hint-box">
-                    <h3>Challenge Types:</h3>
-                    <ul>
-                        <li>HTML Comments - Sometimes developers leave notes...</li>
-                        <li>Robots.txt - Where crawlers fear to tread</li>
-                        <li>Base64 - Not all encoding is encryption</li>
-                        <li>Caesar Cipher - Julius would be proud</li>
-                        <li>Trivia - Test your knowledge</li>
-                    </ul>
+            <div class="challenge-box cyber-terminal">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="control red"></span>
+                        <span class="control yellow"></span>
+                        <span class="control green"></span>
+                    </div>
+                    <span class="terminal-title">mission_briefing.txt</span>
+                </div>
+                <div class="terminal-content">
+                    <h2><i class="fas fa-crosshairs"></i> Your Mission</h2>
+                    <p class="mission-text">Welcome, <span class="highlight">cyber warrior</span>! Your mission is to infiltrate the digital fortress and extract <span class="highlight">5 classified flags</span> hidden throughout this system.</p>
+                    <p>Each flag follows the secure format: <code class="flag-format">FLAG{classified_data_here}</code></p>
+                    
+                    <div class="hint-box cyber-panel">
+                        <h3><i class="fas fa-shield-alt"></i> Attack Vectors:</h3>
+                        <ul class="attack-list">
+                            <li><i class="fas fa-code"></i> <strong>HTML Comments</strong> - Sometimes developers leak intel...</li>
+                            <li><i class="fas fa-robot"></i> <strong>Robots.txt</strong> - Where web crawlers fear to tread</li>
+                            <li><i class="fas fa-key"></i> <strong>Base64 Encoding</strong> - Not all encoding is encryption</li>
+                            <li><i class="fas fa-scroll"></i> <strong>Caesar Cipher</strong> - Ancient crypto methods</li>
+                            <li><i class="fas fa-brain"></i> <strong>Social Engineering</strong> - Test your hacker knowledge</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="challenge-box">
-                <h2>Challenge 1: Developer's Notes</h2>
-                <p>Every good CTF starts with the basics. Have you checked the source code of this page?</p>
-                <p>Developers sometimes leave interesting comments in their HTML...</p>
+            <div class="challenge-box exploit-panel">
+                <div class="challenge-header">
+                    <h2><i class="fas fa-bug"></i> Challenge 1: Code Injection Discovery</h2>
+                    <div class="difficulty-badge easy">BEGINNER</div>
+                </div>
+                <p class="challenge-desc">Every elite hacker starts with reconnaissance. Have you performed source code analysis on this target?</p>
+                <p class="hint-text">Developers often leave <span class="highlight">classified intelligence</span> in their HTML comments...</p>
                 
-                <!-- 🎉 Congratulations on finding your first flag! -->
+                <div class="code-block">
+                    <div class="code-header">
+                        <i class="fas fa-search"></i> Intelligence Gathering
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line"><span class="line-number">01:</span> <span class="comment">// Check developer comments for leaked data</span></span>
+                        <span class="code-line"><span class="line-number">02:</span> <span class="keyword">Right-click</span> → <span class="string">View Page Source</span></span>
+                        <span class="code-line"><span class="line-number">03:</span> <span class="keyword">Ctrl+U</span> <span class="comment">// Shortcut for source</span></span>
+                    </div>
+                </div>
+                
+                <!-- 🎉 CLASSIFIED: You've successfully breached the first security layer! -->
                 <!-- FLAG{html_c0mments_r3v3al_s3cr3ts} -->
-                <!-- The next challenge might be something search engines shouldn't see... -->
-                <!-- Hint: Check what robots are not allowed to access -->
+                <!-- INTEL: Next target might be hidden from search engine crawlers... -->
+                <!-- HINT: Investigate robot access control protocols -->
                 
-                <div class="progress">
-                    <p>Found the flag? The path to enlightenment continues...</p>
+                <div class="progress cyber-alert">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Flag extracted? The digital infiltration continues...</p>
                 </div>
             </div>
 
-            <div class="navigation">
-                <p>Once you've found the first flag, think about where web crawlers look for instructions...</p>
+            <div class="navigation cyber-nav">
+                <div class="nav-terminal">
+                    <div class="nav-prompt">
+                        <i class="fas fa-terminal"></i>
+                        <span class="prompt">hacker@target:~$</span>
+                        <span class="command">find / -name "robots.txt" 2>/dev/null</span>
+                    </div>
+                    <p class="nav-hint">Once you've extracted the first flag, investigate where web crawlers receive their marching orders...</p>
+                </div>
             </div>
         </main>
 
-        <footer>
-            <p>Mini CTF Challenge | Educational Purpose Only</p>
-            <p>Remember: Real hacking requires permission!</p>
+        <footer class="cyber-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-shield-alt"></i> CyberSec CTF Arena</h3>
+                    <p>Ethical Hacking Training Ground | Educational Purpose Only</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Ethical Guidelines</h4>
+                    <p class="warning">Remember: Real hacking requires explicit permission!</p>
+                    <p class="disclaimer">Use these skills responsibly and legally.</p>
+                </div>
+            </div>
+            <div class="footer-matrix">
+                <span class="matrix-chars">01101000 01100001 01100011 01101011</span>
+            </div>
         </footer>
     </div>
+    
+    <script>
+        // Matrix text rotation
+        const words = ['CYBERSECURITY', 'ETHICAL HACKING', 'PENETRATION TESTING', 'DIGITAL FORENSICS', 'MALWARE ANALYSIS'];
+        const rotatingText = document.getElementById('rotating-text');
+        let currentIndex = 0;
+        
+        function rotateText() {
+            rotatingText.style.opacity = '0';
+            setTimeout(() => {
+                rotatingText.textContent = words[currentIndex];
+                rotatingText.style.opacity = '1';
+                currentIndex = (currentIndex + 1) % words.length;
+            }, 300);
+        }
+        
+        setInterval(rotateText, 3000);
+        
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px Source Code Pro, monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters[Math.floor(Math.random() * characters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Console easter egg
+        console.log('%c🚨 UNAUTHORIZED ACCESS DETECTED 🚨', 'color: #ff0044; font-size: 20px; font-weight: bold;');
+        console.log('%c🔒 Enter the matrix with: login("cyber2024")', 'color: #00ff41; font-size: 16px;');
+        
+        window.login = (password) => {
+            if (password === 'cyber2024') {
+                console.log('%c🎯 ACCESS GRANTED! Welcome to the digital underground.', 'color: #00ff41; font-size: 18px; font-weight: bold;');
+                console.log('%c🚩 Bonus Flag: CTF{c0ns0l3_h4ck3r_3l1t3}', 'color: #ffff00; font-size: 14px; background: #000; padding: 5px;');
+            } else {
+                console.log('%c❌ ACCESS DENIED! Invalid credentials.', 'color: #ff0044; font-size: 14px;');
+            }
+        };
+    </script>
 </body>
 </html>
