@@ -857,17 +857,17 @@ footer {
 }
 
 .certificate {
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    border: 3px solid #ffd700;
+    background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-darker) 100%);
+    border: 3px solid var(--matrix-green);
     border-radius: 15px;
     padding: 30px;
     margin: 30px auto;
     max-width: 600px;
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    box-shadow: var(--shadow-matrix);
 }
 
 .certificate h2 {
-    color: #333;
+    color: var(--matrix-green);
     font-size: 2em;
     margin-bottom: 20px;
 }
@@ -880,20 +880,21 @@ footer {
 }
 
 .stat-card {
-    background: white;
+    background: rgba(0, 0, 0, 0.9);
+    border: var(--border-matrix);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-matrix);
 }
 
 .stat-card h3 {
-    color: #667eea;
+    color: var(--matrix-green);
     font-size: 2em;
     margin-bottom: 5px;
 }
 
 .stat-card p {
-    color: #666;
+    color: var(--text-primary);
     font-size: 1.1em;
 }
 
