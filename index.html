@@ -17,14 +17,17 @@
         <header>
             <div class="header-content">
                 <div class="cyber-logo">
-                    <i class="fas fa-skull-crossbones"></i>
-                    <span class="matrix-text" id="rotating-text">CYBERSECURITY</span>
+                    <span class="rotate-text" id="rotating-text">CYBERSECURITY</span>
                 </div>
-                <h1 class="glitch-title" data-text="WELCOME TO CYBER CTF"> WELCOME TO CTF CHALLENGE </h1>
-                <p class="subtitle">Enter the Digital Underground - Ethical Hacking Arena</p>
-                <div class="terminal-prompt">
-                    <span class="prompt">root@cybersec:~$</span>
-                    <span class="typing-text">./initialize_ctf.sh</span>
+                <div class="title-container">
+                    <h1 class="glitch-heading">WELCOME TO <span id="ctf-text">CTF</span></h1>
+                    <h1 class="glitch-heading">CHALLENGE</h1>
+                </div>
+                <p class="subtitle neon-text">Enter the Digital Underground - Ethical Hacking Arena</p>
+                <div class="terminal-prompt cyber-frame">
+                    <span class="prompt blink">[root@cybersec]</span>
+                    <span class="command-text">./initialize_ctf.sh</span>
+                    <span class="cursor"></span>
                 </div>
             </div>
         </header>
@@ -114,6 +117,9 @@
             <div class="footer-matrix">
                 <span class="matrix-chars">01101000 01100001 01100011 01101011</span>
             </div>
+            <div class="footer-developer">
+                <p>Developed by <span class="dev-name">Aniket Tegginamath</span> <i class="fas fa-terminal"></i></p>
+            </div>
         </footer>
     </div>
     
@@ -133,6 +139,103 @@
         }
         
         setInterval(rotateText, 3000);
+        
+        // CTF to GMU Transition Effect
+        const ctfTextElement = document.getElementById('ctf-text');
+        let isTransitioning = false;
+        let currentText = 'CTF';
+        
+        // Matrix characters for scrambling effect
+        const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        
+        function scrambleText(element, targetText, duration = 600) {
+            const originalText = element.textContent;
+            const steps = 20;
+            const stepDuration = duration / steps;
+            let currentStep = 0;
+            
+            const scrambleInterval = setInterval(() => {
+                if (currentStep < steps) {
+                    // Create scrambled text
+                    let scrambledText = '';
+                    for (let i = 0; i < targetText.length; i++) {
+                        if (currentStep < steps - 5) {
+                            // Random matrix characters
+                            scrambledText += matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                        } else {
+                            // Gradually reveal target text
+                            const revealProgress = (currentStep - (steps - 5)) / 5;
+                            if (Math.random() < revealProgress) {
+                                scrambledText += targetText[i];
+                            } else {
+                                scrambledText += matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                            }
+                        }
+                    }
+                    element.textContent = scrambledText;
+                    currentStep++;
+                } else {
+                    // Final text
+                    element.textContent = targetText;
+                    clearInterval(scrambleInterval);
+                }
+            }, stepDuration);
+        }
+        
+        function transitionToGMU() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            
+            // Add transition classes
+            ctfTextElement.classList.add('transitioning', 'matrix-scramble');
+            
+            // Start scrambling effect
+            setTimeout(() => {
+                scrambleText(ctfTextElement, 'GMU', 600);
+            }, 200);
+            
+            // Remove transition classes after animation
+            setTimeout(() => {
+                ctfTextElement.classList.remove('transitioning', 'matrix-scramble');
+                currentText = 'GMU';
+                isTransitioning = false;
+                
+                // Schedule transition back to CTF
+                setTimeout(() => {
+                    transitionToCTF();
+                }, 3000); // Stay as GMU for 3 seconds
+            }, 1000);
+        }
+        
+        function transitionToCTF() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            
+            // Add transition classes
+            ctfTextElement.classList.add('transitioning', 'matrix-scramble');
+            
+            // Start scrambling effect
+            setTimeout(() => {
+                scrambleText(ctfTextElement, 'CTF', 600);
+            }, 200);
+            
+            // Remove transition classes after animation
+            setTimeout(() => {
+                ctfTextElement.classList.remove('transitioning', 'matrix-scramble');
+                currentText = 'CTF';
+                isTransitioning = false;
+                
+                // Schedule next transition to GMU
+                setTimeout(() => {
+                    transitionToGMU();
+                }, 5000); // Stay as CTF for 5 seconds
+            }, 1000);
+        }
+        
+        // Start the transition cycle after initial load
+        setTimeout(() => {
+            transitionToGMU();
+        }, 4000); // Start first transition after 4 seconds
         
         // Matrix rain effect
         const canvas = document.getElementById('matrix-canvas');
