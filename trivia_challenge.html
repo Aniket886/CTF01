@@ -18,6 +18,11 @@
                 <p>Great job with the Caesar cipher! For your final challenge, let's test your cybersecurity knowledge.</p>
                 <p>Answer all questions correctly to reveal the final flag!</p>
                 
+                <div class="name-input">
+                    <label for="playerName">Enter your name:</label>
+                    <input type="text" id="playerName" placeholder="Your name" required>
+                </div>
+                
                 <div id="quiz-container">
                     <div class="question">
                         <h3>Question 1:</h3>
@@ -138,9 +143,13 @@
                         <li>FLAG{m4st3r_0f_cyb3rs3cur1ty_tr1v1a}</li>
                     </ol>
                     <br>
-                    <p><a href="congratulations.html">Continue to final page →</a></p>
+                    <p><a href="completion.html" id="completionLink">Continue to final page →</a></p>
                 `;
                 resultDiv.className = 'result-box success';
+                // Add name to completion link
+                const completionLink = document.getElementById('completionLink');
+                const playerName = document.getElementById('playerName').value || 'Challenger';
+                completionLink.href = `completion.html?name=${encodeURIComponent(playerName)}`;
             } else {
                 resultDiv.innerHTML = `
                     <h3>Not quite right!</h3>

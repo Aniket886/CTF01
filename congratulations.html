@@ -5,10 +5,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Congratulations - CTF Complete!</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        .certificate-wrap {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.9);
+            border: var(--border-matrix);
+            box-shadow: var(--shadow-matrix);
+            padding: 20px;
+            border-radius: 10px;
+            aspect-ratio: 16/9; /* Wider landscape ratio */
+        }
+
+        .certificate-toolbar {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .certificate-canvas {
+            position: relative;
+            background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-black) 100%);
+            border: var(--border-matrix);
+            border-radius: 10px;
+            padding: 40px 80px;
+            box-shadow: var(--shadow-matrix);
+            aspect-ratio: 16/9; /* Wider landscape ratio */
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .certificate-kicker {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--matrix-green);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-shadow: 0 0 10px var(--matrix-green-glow);
+        }
+
+        .certificate-title {
+            margin-top: 10px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 44px;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px var(--matrix-green-glow);
+        }
+
+        .certificate-rule {
+            height: 2px;
+            width: 70%;
+            margin: 16px auto 0;
+            background: linear-gradient(90deg, transparent, var(--matrix-green), transparent);
+            box-shadow: 0 0 15px var(--matrix-green-glow);
+        }
+
+        .certificate-subtitle {
+            text-align: center;
+            margin: 28px 0 8px;
+            color: var(--text-secondary);
+            font-size: 18px;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .certificate-name {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 800;
+            font-family: 'Orbitron', monospace;
+            color: var(--matrix-green);
+            text-shadow: 0 0 20px var(--matrix-green-glow);
+            letter-spacing: 2px;
+        }
+
+        .certificate-program {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Orbitron', monospace;
+            color: var(--cyber-red);
+            text-shadow: 0 0 20px var(--cyber-red);
+            margin-top: 10px;
+        }
+
+        .certificate-section {
+            margin: 38px 0 10px;
+            text-align: center;
+        }
+
+        .certificate-section h3 {
+            display: inline-block;
+            padding: 6px 20px;
+            border: 2px solid var(--matrix-green);
+            border-radius: 4px;
+            font-family: 'Source Code Pro', monospace;
+            color: var(--matrix-green);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--matrix-green-glow);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .certificate-skills {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            gap: 15px 60px;
+            max-width: 900px;
+            margin: 25px auto 0;
+            justify-content: center;
+            text-align: left;
+        }
+        
+        .certificate-skills div {
+            color: var(--text-primary);
+            padding-left: 25px;
+            position: relative;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 16px;
+            text-shadow: none;
+        }
+        
+        .certificate-skills div::before {
+            content: '|';
+            position: absolute;
+            left: 0;
+            color: var(--matrix-green);
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--matrix-green-glow);
+        }
+
+        .certificate-badge {
+            margin: 30px auto 0;
+            width: max-content;
+            padding: 12px 24px;
+            border: var(--border-matrix);
+            border-radius: 8px;
+            color: var(--matrix-green);
+            font-family: 'Source Code Pro', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--matrix-green-glow);
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: var(--shadow-matrix);
+        }
+
+        .certificate-meta {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px dashed var(--matrix-green);
+            padding-top: 25px;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .certificate-meta strong {
+            color: var(--matrix-green);
+        }
+
+        .sig-name {
+            color: var(--matrix-green) !important;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 18px;
+            text-shadow: 0 0 10px var(--matrix-green-glow);
+        }
+
+        .sig-line {
+            height: 2px;
+            width: 180px;
+            background: var(--matrix-green);
+            margin: 8px 0 8px auto;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--matrix-green-glow);
+        }
+
+        .sig-title {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--matrix-green), -0.05em -0.05em 0 var(--cyber-red),
+                            -0.05em 0.05em 0 var(--cyber-blue);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 var(--matrix-green), -0.05em -0.05em 0 var(--cyber-red),
+                            -0.05em 0.05em 0 var(--cyber-blue);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--matrix-green), 0.025em 0.025em 0 var(--cyber-red),
+                            -0.05em -0.05em 0 var(--cyber-blue);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--matrix-green), 0.025em 0.025em 0 var(--cyber-red),
+                            -0.05em -0.05em 0 var(--cyber-blue);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--matrix-green), 0.05em 0 0 var(--cyber-red),
+                            0 -0.05em 0 var(--cyber-blue);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--matrix-green), 0.05em 0 0 var(--cyber-red),
+                            0 -0.05em 0 var(--cyber-blue);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--matrix-green), -0.025em -0.025em 0 var(--cyber-red),
+                            -0.025em -0.05em 0 var(--cyber-blue);
+            }
+        }
+
+        .certificate-title, .certificate-name, .certificate-program {
+            animation: glitch 1s infinite;
+        }
+
         .name-input-section {
             background: rgba(0, 0, 0, 0.9);
             border: var(--border-matrix);
@@ -40,7 +271,7 @@
             box-shadow: 0 0 15px var(--matrix-green-glow);
         }
         
-        .generate-btn {
+        .generate-btn, .download-btn {
             background: linear-gradient(135deg, var(--matrix-green) 0%, var(--matrix-green-dark) 100%);
             color: var(--bg-black);
             border: var(--border-matrix);
@@ -56,7 +287,7 @@
             transition: all 0.3s ease;
         }
         
-        .generate-btn:hover {
+        .generate-btn:hover, .download-btn:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-matrix);
             filter: brightness(1.1);
@@ -336,15 +567,22 @@
             margin: 5px 0;
         }
         
-        /* Modern Certificate Styles */
+        /* Modern Certificate Styles - Professional Design */
         :root {
-            --cert-bg: #0c0f12;
+            --cert-bg: #0a0a0a;
             --cert-accent: #39ff14;
             --cert-accent-soft: #2ddf92;
             --cert-highlight: #ff2d55;
-            --cert-ink: #e6edf3;
+            --cert-ink: #ffffff;
             --cert-muted: #a8b3bd;
-            --cert-line: #20303f;
+            --cert-line: #39ff14;
+            --bg: #0a0a0a;
+            --accent: #39ff14;
+            --accent-soft: #2ddf92;
+            --highlight: #ff2d55;
+            --ink: #ffffff;
+            --muted: #a8b3bd;
+            --line: #39ff14;
         }
         
         .modern-certificate {
@@ -474,6 +712,38 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, #3f5a6a, transparent);
         }
+        
+        /* New Certificate Styles - Landscape Professional Design */
+        .wrap{width:100%; max-width:1200px; margin:0 auto;}
+        .toolbar{display:flex; gap:12px; justify-content:flex-end; margin-bottom:20px;}
+        button{appearance:none; border:1px solid #39ff14; background:rgba(0,0,0,0.8);
+            color:#39ff14; padding:10px 14px; border-radius:8px; font-weight:600; cursor:pointer; font-family:"IBM Plex Mono", monospace;}
+        button:hover{border-color:#39ff14; box-shadow:0 0 10px rgba(57,255,20,0.3); background:rgba(57,255,20,0.1);}
+        .canvas{position:relative; background:#0a0a0a; border:2px solid #39ff14; border-radius:12px; padding:40px 80px;
+            box-shadow:0 0 20px rgba(57,255,20,0.2), inset 0 0 20px rgba(0,0,0,0.5); 
+            width:100%; max-width:1400px; margin:0 auto; aspect-ratio: 1.8/1; /* Wider landscape ratio */}
+        .header{text-align:center; margin-bottom:30px;}
+        .kicker{font-family:"IBM Plex Mono", monospace; color:#a8b3bd; letter-spacing:0.2em; text-transform:uppercase; font-size:10px; margin-bottom:10px;}
+        .title{margin-top:10px; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; font-size:28px; color:#ffffff; line-height:1.1;}
+        .title .accent{color:#39ff14}
+        .rule{height:2px; width:50%; margin:15px auto 0; background:linear-gradient(90deg, transparent, #39ff14, transparent);}
+        .subtitle{text-align:center; margin:20px 0 10px; color:#a8b3bd; font-size:14px; font-weight:400;}
+        .name{text-align:center; font-size:32px; font-weight:900; color:#39ff14; margin:15px 0; text-transform:uppercase; letter-spacing:0.05em;}
+        .program{text-align:center; font-size:24px; font-weight:900; color:#ff2d55; margin:15px 0; text-transform:uppercase; letter-spacing:0.05em;}
+        .section{margin:25px 0 15px; text-align:center;}
+        .section h3{display:inline-block; padding:6px 12px; border:1px solid #39ff14; border-radius:15px;
+            font-family:"IBM Plex Mono", monospace; color:#39ff14; font-size:10px; text-transform:uppercase; letter-spacing:0.1em;}
+        .skills{display:grid; grid-template-columns:repeat(2, minmax(180px, 1fr)); gap:8px 20px; max-width:500px; margin:15px auto 0;}
+        .skills div{color:#e6edf3; border-left:2px solid #39ff14; padding-left:8px; font-size:12px; font-weight:500;}
+        .badge{margin:20px auto 0; width:max-content; padding:8px 16px; border:1px solid #39ff14; border-radius:15px;
+            color:#39ff14; font-family:"IBM Plex Mono", monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em;}
+        .meta{margin-top:25px; display:flex; justify-content:space-between; align-items:flex-end; border-top:1px dashed #39ff14; padding-top:15px;}
+        .meta-left{color:#a8b3bd; font-size:12px;}
+        .meta-left strong{color:#39ff14;}
+        .meta-right{text-align:right;}
+        .signature-line{height:1px; background:#ffffff; margin:10px 0 5px auto; width:150px;}
+        .signature-name{color:#ffffff; font-size:14px; font-weight:700; margin-bottom:3px;}
+        .signature-title{color:#a8b3bd; font-size:10px; font-weight:600;}
     </style>
 </head>
 <body>
@@ -486,8 +756,6 @@
             <div class="trophy">⬢</div>
             
             <div class="certificate">
-                <h2 style="color: var(--matrix-green); font-family: var(--font-primary); text-shadow: 0 0 15px var(--matrix-green); text-align: center; font-size: 2.5rem; margin-bottom: 1.5rem;">CERTIFICATE OF ACHIEVEMENT</h2>
-                
                 <div id="nameInputSection" class="name-input-section">
                     <p style="color: var(--text-primary); margin-bottom: 15px;">Enter your name to generate your cybersecurity certificate:</p>
                     <input type="text" id="studentName" class="name-input" placeholder="Enter Hacker Name" maxlength="50">
@@ -496,48 +764,45 @@
                 </div>
                 
                 <div id="certificateDisplay" style="display: none;">
-                    <div class="terminal-header">
-                        <div class="terminal-controls">
-                            <div class="control red"></div>
-                            <div class="control yellow"></div>
-                            <div class="control green"></div>
+                    <div class="wrap">
+                        <div class="toolbar">
+                            <button class="btn-accent" id="btnPng">Download PNG</button>
+                            <button class="btn-primary" id="btnPdf">Download PDF</button>
                         </div>
-                        <div class="terminal-title">CERTIFICATION_PROTOCOL.exe</div>
-                    </div>
-                    
-                    <div class="certificate-content">
-                        <div class="system-messages">
-                            <div class="system-line">> SYSTEM: CERTIFICATION_PROTOCOL_INITIATED</div>
-                            <div class="system-line">> STATUS: MISSION_ACCOMPLISHED</div>
-                        </div>
-                        
-                        <div class="cert-title">CERTIFICATE OF ACHIEVEMENT</div>
-                        <div class="cert-divider"></div>
-                        
-                        <div class="cert-text">This certifies that</div>
-                        <div class="student-name" id="displayName"></div>
-                        <div class="cert-text">has successfully infiltrated and completed the</div>
-                        <div class="challenge-name">CYBERSEC CTF CHALLENGE 2025</div>
-                        
-                        <div class="skills-section">
-                            <center>
-                            <div class="skills-header">[ DEMONSTRATED SKILLS ]</div>
-                            <div class="skill-item">HTML SOURCE ANALYSIS</div>
-                            <div class="skill-item">WEB RECONNAISSANCE</div>
-                            <div class="skill-item">BASE64 DECODING</div>
-                            <div class="skill-item">CLASSICAL CRYPTOGRAPHY</div>
-                            <div class="skill-item">SECURITY KNOWLEDGE</div>
-                             </center>
-                        </div>
-                        
-                        <div class="clearance">[ SECURITY CLEARANCE: GRANTED ]</div>
-                        <div class="timestamp">TIMESTAMP: <span id="certDate"></span></div>
-                        
-                        <div class="signature-section">
-                            <div class="signature-line"></div>
-                            <div class="signature-text">ANIKET TEGGINAMATH</div>
-                            <div class="signature-name">CTF ADMINISTRATOR</div>
-                        </div>
+
+                        <section id="certificate" class="canvas">
+                        <header class="header">
+                            <div class="kicker">OFFICIAL RECOGNITION</div>
+                            <h1 class="title">CERTIFICATE OF ACHIEVEMENT</h1>
+                            <div class="rule"></div>
+                        </header>
+
+                        <div class="subtitle">This certifies that</div>
+                        <div class="name" id="displayName"></div>
+                        <div class="subtitle">has successfully completed the</div>
+                        <div class="program">CYBERSEC CTF CHALLENGE 2025</div>                            <div class="section"><h3>Demonstrated Skills</h3></div>
+                            <div class="skills">
+                                <div>HTML Source Analysis</div>
+                                <div>Web Reconnaissance</div>
+                                <div>Base64 Decoding</div>
+                                <div>Classical Cryptography</div>
+                                <div>Security Knowledge</div>
+                            </div>
+
+                            <div class="badge">Security Clearance: Granted</div>
+
+                            <div class="meta">
+                                <div class="meta-left">
+                                    <div><strong>Issued:</strong> <span id="certDate"></span></div>
+                                    <div><strong>Credential ID:</strong> <span id="credId"></span></div>
+                                </div>
+                                <div class="meta-right">
+                                    <div class="signature-line"></div>
+                                    <div class="signature-name">Aniket Tegginamath</div>
+                                    <div class="signature-title">CTF Administrator</div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
@@ -689,278 +954,213 @@
     </div>
     
     <!-- Hidden canvas for certificate generation -->
-    <canvas id="certificateCanvas" width="1200" height="850"></canvas>
-    
+    <canvas id="certificateCanvas" width="1600" height="900"></canvas>
+
     <script>
         let certificateGenerated = false;
         let studentNameValue = '';
-        
+
+        // Generate random Credential ID
+        function generateCredentialId() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let randomPart = "";
+            for (let i = 0; i < 5; i++) {
+                randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return "CTF-2025-AT-" + randomPart;
+        }
+
         function generateCertificate() {
             const nameInput = document.getElementById('studentName');
             const name = nameInput.value.trim();
-            
+
             if (name === '') {
                 alert('Please enter your name to generate the certificate');
                 return;
             }
-            
+
             studentNameValue = name;
             certificateGenerated = true;
-            
-            // Display the certificate
-            document.getElementById('displayName').textContent = name;
+
+            // Hide name input section and show certificate section
+            document.getElementById('nameInputSection').style.display = 'none';
+            document.getElementById('certificateDisplay').style.display = 'block';
+
+            // Update certificate with user's name and details
+            document.getElementById('displayName').textContent = name.toUpperCase();
             document.getElementById('certDate').textContent = new Date().toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             });
-            
-            // Hide input, show certificate
-            document.getElementById('nameInputSection').style.display = 'none';
-            document.getElementById('certificateDisplay').style.display = 'block';
-            
+            document.getElementById('credId').textContent = generateCredentialId();
+
             // Show download and share buttons
             document.getElementById('downloadBtn').style.display = 'inline-flex';
             document.getElementById('downloadPdfBtn').style.display = 'inline-flex';
             document.getElementById('shareBtn').style.display = 'inline-flex';
-            
+
             // Generate canvas certificate
-            drawCertificate(name);
+            drawCertificateLandscape(name);
         }
-        
-        function drawCertificate(name) {
+
+        function drawCertificateLandscape(name) {
             const canvas = document.getElementById('certificateCanvas');
             const ctx = canvas.getContext('2d');
-            
-            // Pure black background
-            ctx.fillStyle = '#000000';
+
+            // Landscape background
+            ctx.fillStyle = '#0a0a0a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Add subtle green grid pattern
-            ctx.strokeStyle = 'rgba(0, 255, 65, 0.05)';
-            ctx.lineWidth = 1;
-            for (let i = 0; i < canvas.width; i += 50) {
-                ctx.beginPath();
-                ctx.moveTo(i, 0);
-                ctx.lineTo(i, canvas.height);
-                ctx.stroke();
-            }
-            for (let i = 0; i < canvas.height; i += 50) {
-                ctx.beginPath();
-                ctx.moveTo(0, i);
-                ctx.lineTo(canvas.width, i);
-                ctx.stroke();
-            }
-            
-            // Green glowing border
-            ctx.shadowColor = '#00ff41';
-            ctx.shadowBlur = 15;
-            ctx.strokeStyle = '#00ff41';
-            ctx.lineWidth = 3;
-            ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
-            
-            // Inner border
-            ctx.shadowBlur = 5;
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
-            ctx.shadowBlur = 0;
-            
-            // Add terminal-style header
-            ctx.fillStyle = '#00ff41';
-            ctx.font = 'bold 18px "Courier New", monospace';
-            ctx.textAlign = 'left';
-            ctx.fillText('> SYSTEM: CERTIFICATION_PROTOCOL_INITIATED', 80, 90);
-            ctx.fillText('> STATUS: MISSION_ACCOMPLISHED', 80, 110);
-            
-            // Minimal corner decorations
-            ctx.font = '30px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillStyle = '#ff0040';
-            ctx.fillText('⭐', 120, 160); // star
-            ctx.fillStyle = '#00ff41';
-            ctx.fillText('⭐', canvas.width - 120, 160); // star
-            
-            // Main title with glow effect
-            ctx.textAlign = 'center';
-            ctx.shadowColor = '#00ff41';
-            ctx.shadowBlur = 20;
-            ctx.fillStyle = '#00ff41';
-            ctx.font = 'bold 48px "Arial Black", sans-serif';
-            ctx.fillText('CERTIFICATE OF ACHIEVEMENT', canvas.width / 2, 180);
-            
-            // Simple decorative line
-            ctx.shadowBlur = 0;
-            ctx.strokeStyle = '#ffffff';
+
+            // Neon green border
+            ctx.save();
+            ctx.shadowColor = '#39ff14';
+            ctx.shadowBlur = 30;
+            ctx.strokeStyle = '#39ff14';
+            ctx.lineWidth = 8;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            ctx.restore();
+
+            // Inner white border
+            ctx.strokeStyle = 'rgba(255,255,255,0.15)';
             ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(200, 200);
-            ctx.lineTo(canvas.width - 200, 200);
-            ctx.stroke();
-            
+            ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+
+            // Header
+            ctx.font = 'bold 32px "Orbitron", Arial, sans-serif';
+            ctx.fillStyle = '#39ff14';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = '#39ff14';
+            ctx.shadowBlur = 18;
+            ctx.fillText('CERTIFICATE OF ACHIEVEMENT', canvas.width / 2, 130);
+            ctx.shadowBlur = 0;
+
             // Subtitle
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '24px "Segoe UI", sans-serif';
-            ctx.fillText('This certifies that', canvas.width / 2, 250);
-            
-            // Name with green glow
-            ctx.shadowColor = '#00ff41';
+            ctx.font = '22px "Source Code Pro", monospace';
+            ctx.fillStyle = '#e6edf3';
+            ctx.fillText('This certifies that', canvas.width / 2, 190);
+
+            // Name
+            ctx.font = 'bold 60px "Orbitron", Arial, sans-serif';
+            ctx.fillStyle = '#39ff14';
+            ctx.shadowColor = '#39ff14';
             ctx.shadowBlur = 25;
-            ctx.fillStyle = '#00ff41';
-            ctx.font = 'bold 58px "Arial Black", sans-serif';
-            ctx.fillText(name.toUpperCase(), canvas.width / 2, 310);
+            ctx.fillText(name.toUpperCase(), canvas.width / 2, 270);
             ctx.shadowBlur = 0;
-            
+
             // Achievement text
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '24px "Segoe UI", sans-serif';
-            ctx.fillText('has successfully completed the', canvas.width / 2, 370);
-            
-            // Challenge name
-            ctx.shadowColor = '#ff0040';
+            ctx.font = '22px "Source Code Pro", monospace';
+            ctx.fillStyle = '#e6edf3';
+            ctx.fillText('has successfully completed the', canvas.width / 2, 320);
+
+            // Program name
+            ctx.font = 'bold 44px "Orbitron", Arial, sans-serif';
+            ctx.fillStyle = '#ff2d55';
+            ctx.shadowColor = '#ff2d55';
             ctx.shadowBlur = 15;
-            ctx.fillStyle = '#ff0040';
-            ctx.font = 'bold 42px "Arial Black", sans-serif';
-            ctx.fillText('CYBERSEC CTF CHALLENGE 2024', canvas.width / 2, 420);
+            ctx.fillText('CYBERSEC CTF CHALLENGE 2025', canvas.width / 2, 380);
             ctx.shadowBlur = 0;
-            
-            // Terminal-style skills section
-            ctx.fillStyle = '#00ff41';
-            ctx.font = 'bold 20px "Courier New", monospace';
-            ctx.fillText('[ DEMONSTRATED SKILLS ]', canvas.width / 2, 480);
-            
-            // Skills in cyber style
+
+            // Decorative divider
+            ctx.strokeStyle = '#39ff14';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2 - 300, 410);
+            ctx.lineTo(canvas.width / 2 + 300, 410);
+            ctx.stroke();
+
+            // Skills section
+            ctx.font = 'bold 26px "Source Code Pro", monospace';
+            ctx.fillStyle = '#39ff14';
+            ctx.fillText('Demonstrated Skills', canvas.width / 2, 460);
+
+            // Skills list
             const skills = [
-                '[+] HTML SOURCE ANALYSIS',
-                '[+] WEB RECONNAISSANCE',
-                '[+] BASE64 DECODING',
-                '[+] CLASSICAL CRYPTOGRAPHY',
-                '[+] SECURITY KNOWLEDGE'
+                'HTML Source Analysis',
+                'Web Reconnaissance',
+                'Base64 Decoding',
+                'Classical Cryptography',
+                'Security Knowledge'
             ];
-            
-            ctx.font = '16px "Courier New", monospace';
-            ctx.fillStyle = '#ffffff';
-            let yPos = 520;
-            skills.forEach((skill, index) => {
-                ctx.fillText(skill, canvas.width / 2, yPos);
-                yPos += 25;
-            });
-            
-            // Simple security indicators
-            ctx.font = '20px "Courier New", monospace';
-            ctx.fillStyle = '#00ff41';
-            ctx.fillText('[ SECURITY CLEARANCE: GRANTED ]', canvas.width / 2, 680);
-            
-            // Date in cyber style
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '14px "Courier New", monospace';
-            const date = new Date().toLocaleDateString('en-US', {
+            ctx.font = '20px "Source Code Pro", monospace';
+            ctx.fillStyle = '#e6edf3';
+            let leftX = canvas.width / 2 - 250;
+            let rightX = canvas.width / 2 + 250;
+            let yStart = 510;
+            for (let i = 0; i < skills.length; i++) {
+                let x = i % 2 === 0 ? leftX : rightX;
+                let y = yStart + Math.floor(i / 2) * 40;
+                ctx.textAlign = 'left';
+                ctx.fillText('• ' + skills[i], x, y);
+            }
+
+            // Security badge
+            ctx.font = 'bold 22px "Source Code Pro", monospace';
+            ctx.fillStyle = '#39ff14';
+            ctx.textAlign = 'center';
+            ctx.fillText('Security Clearance: Granted', canvas.width / 2, 650);
+
+            // Meta info
+            ctx.font = '18px "Source Code Pro", monospace';
+            ctx.fillStyle = '#a8b3bd';
+            ctx.textAlign = 'left';
+            ctx.fillText('Issued: ' + new Date().toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
-            });
-            ctx.fillText(`TIMESTAMP: ${date.toUpperCase()}`, canvas.width / 2, 720);
-            
-            // Digital signature section
-            ctx.strokeStyle = '#00ff41';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([5, 5]);
-            ctx.beginPath();
-            ctx.moveTo(canvas.width / 2 - 150, 750);
-            ctx.lineTo(canvas.width / 2 + 150, 750);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            
-            ctx.fillStyle = '#00ff41';
-            ctx.font = '12px "Courier New", monospace';
-            ctx.fillText('[ DIGITALLY SIGNED ]', canvas.width / 2, 770);
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('CTF ADMINISTRATOR', canvas.width / 2, 790);
-            
-            // Add minimal corner decorations
-            ctx.strokeStyle = '#ff0040';
+            }), 100, canvas.height - 120);
+            ctx.fillText('Credential ID: ' + generateCredentialId(), 100, canvas.height - 80);
+
+            // Signature
+            ctx.textAlign = 'right';
+            ctx.font = 'bold 24px "Orbitron", Arial, sans-serif';
+            ctx.fillStyle = '#39ff14';
+            ctx.fillText('Aniket Tegginamath', canvas.width - 100, canvas.height - 120);
+            ctx.font = '16px "Source Code Pro", monospace';
+            ctx.fillStyle = '#a8b3bd';
+            ctx.fillText('CTF Administrator', canvas.width - 100, canvas.height - 90);
+
+            // Signature line
+            ctx.strokeStyle = '#e6edf3';
             ctx.lineWidth = 2;
-            // Top-left corner
             ctx.beginPath();
-            ctx.moveTo(40, 70);
-            ctx.lineTo(40, 40);
-            ctx.lineTo(70, 40);
-            ctx.stroke();
-            // Top-right corner
-            ctx.beginPath();
-            ctx.moveTo(canvas.width - 40, 70);
-            ctx.lineTo(canvas.width - 40, 40);
-            ctx.lineTo(canvas.width - 70, 40);
-            ctx.stroke();
-            // Bottom-left corner
-            ctx.beginPath();
-            ctx.moveTo(40, canvas.height - 70);
-            ctx.lineTo(40, canvas.height - 40);
-            ctx.lineTo(70, canvas.height - 40);
-            ctx.stroke();
-            // Bottom-right corner
-            ctx.beginPath();
-            ctx.moveTo(canvas.width - 40, canvas.height - 70);
-            ctx.lineTo(canvas.width - 40, canvas.height - 40);
-            ctx.lineTo(canvas.width - 70, canvas.height - 40);
+            ctx.moveTo(canvas.width - 300, canvas.height - 110);
+            ctx.lineTo(canvas.width - 100, canvas.height - 110);
             ctx.stroke();
         }
-        
+
         async function downloadCertificate() {
             if (!certificateGenerated) {
                 alert('Please generate your certificate first by entering your name above!');
                 return;
             }
-            
+
             try {
-                const certificateElement = document.getElementById('certificateDisplay');
-                const canvas = await html2canvas(certificateElement, {
-                    backgroundColor: '#000000',
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false,
-                    width: certificateElement.scrollWidth,
-                    height: certificateElement.scrollHeight
-                });
-                
+                const node = document.getElementById('certificate');
+                const canvas = await html2canvas(node, {backgroundColor: null, scale: 2});
                 const dataURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = `CyberSec_CTF_Certificate_${studentNameValue.replace(/\s+/g, '_')}.png`;
-                link.href = dataURL;
-                link.click();
+                const a = document.createElement('a');
+                a.href = dataURL;
+                a.download = `CyberSec_CTF_Certificate_${studentNameValue.replace(/\s+/g, '_')}.png`;
+                a.click();
             } catch (error) {
                 console.error('Error generating certificate:', error);
                 alert('Error generating certificate. Please try again.');
             }
         }
-        
+
         async function downloadCertificatePDF() {
             if (!certificateGenerated) {
                 alert('Please generate your certificate first by entering your name above!');
                 return;
             }
-            
+
             try {
-                const certificateElement = document.getElementById('certificateDisplay');
-                const canvas = await html2canvas(certificateElement, {
-                    backgroundColor: '#000000',
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false,
-                    width: certificateElement.scrollWidth,
-                    height: certificateElement.scrollHeight
-                });
-                
+                const node = document.getElementById('certificate');
+                const canvas = await html2canvas(node, {backgroundColor: '#0a0e12', scale: 2});
                 const imgData = canvas.toDataURL('image/png');
                 const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({
-                    orientation: 'landscape',
-                    unit: 'pt',
-                    format: 'a4'
-                });
-                
+                const pdf = new jsPDF({orientation:'landscape', unit:'pt', format:'a4'});
                 const pageW = pdf.internal.pageSize.getWidth();
                 const pageH = pdf.internal.pageSize.getHeight();
                 const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
@@ -968,7 +1168,6 @@
                 const h = canvas.height * ratio;
                 const x = (pageW - w) / 2;
                 const y = (pageH - h) / 2;
-                
                 pdf.addImage(imgData, 'PNG', x, y, w, h);
                 pdf.save(`CyberSec_CTF_Certificate_${studentNameValue.replace(/\s+/g, '_')}.pdf`);
             } catch (error) {
@@ -976,7 +1175,7 @@
                 alert('Error generating PDF certificate. Please try again.');
             }
         }
-        
+
         function showShareModal() {
             if (!certificateGenerated) {
                 alert('Please generate your certificate first by entering your name above!');
@@ -984,38 +1183,38 @@
             }
             document.getElementById('shareModal').classList.add('active');
         }
-        
+
         function closeShareModal() {
             document.getElementById('shareModal').classList.remove('active');
         }
-        
+
         function shareLinkedIn() {
             const text = `I just completed the Mini CTF Challenge! 🎉\n\nSuccessfully captured all 5 flags and demonstrated skills in:\n✅ Web Security\n✅ Cryptography\n✅ Reconnaissance\n✅ Encoding/Decoding\n\n#CyberSecurity #CTF #EthicalHacking #InfoSec`;
             const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}&summary=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
         }
-        
+
         function shareTwitter() {
             const text = `🎉 Just completed the Mini CTF Challenge! Captured all 5 flags! 🚩\n\n#CTF #CyberSecurity #EthicalHacking #InfoSec`;
             const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
         }
-        
+
         function shareFacebook() {
             const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent('I completed the Mini CTF Challenge! 🎉')}`;
             window.open(url, '_blank');
         }
-        
+
         function shareWhatsApp() {
             const text = `🎉 I just completed the Mini CTF Challenge!\n\nSuccessfully captured all 5 flags!\n\nTry it yourself: ${window.location.href}`;
             const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
         }
-        
+
         function showAllFlags() {
             document.getElementById('flagsModal').classList.add('active');
         }
-        
+
         function closeFlagsModal() {
             document.getElementById('flagsModal').classList.remove('active');
         }
@@ -1050,6 +1249,19 @@
         for (let i = 0; i < 50; i++) {
             setTimeout(createConfetti, i * 100);
         }
+
+        // Add event listeners for new download buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnPng = document.getElementById('btnPng');
+            const btnPdf = document.getElementById('btnPdf');
+
+            if (btnPng) {
+                btnPng.addEventListener('click', downloadCertificate);
+            }
+            if (btnPdf) {
+                btnPdf.addEventListener('click', downloadCertificatePDF);
+            }
+        });
     </script>
 </body>
 </html>

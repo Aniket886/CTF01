@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CyberSec CTF Certificate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="assets/certificate-generator.js" defer></script>
+    <script>
+        // Initialize certificate with player name from local storage
+        document.addEventListener('DOMContentLoaded', () => {
+            const playerName = localStorage.getItem('playerName') || 'Challenger';
+            initializeCertificate(playerName);
+        });
+    </script>
+    <style>
+        :root {
+            --bg: #000000;
+            --accent: #39ff14;
+            --accent-soft: #2ddf92;
+            --highlight: #ff2d55;
+            --ink: #ffffff;
+            --muted: #a8b3bd;
+            --line: #20303f;
+        }
+
+        body {
+            background: var(--bg);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .toolbar button {
+            appearance: none;
+            border: 1px solid var(--line);
+            background: #0f141a;
+            color: var(--ink);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            border-color: #2b3f52;
+            box-shadow: 0 0 0 3px rgba(57,255,20,.15);
+        }
+
+        .canvas {
+            position: relative;
+            background: #000000;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 60px 68px;
+            box-shadow: 0 0 0 1px rgba(57,255,20,.08) inset,0 10px 30px rgba(0,0,0,.45);
+            aspect-ratio: 16/9;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 34px;
+            position: relative;
+        }
+
+        .kicker {
+            font-family: "IBM Plex Mono", monospace;
+            color: var(--accent-soft);
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .title {
+            margin-top: 20px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-size: 44px;
+            color: var(--ink);
+            position: relative;
+            text-shadow: 0 0 2px #fff;
+            padding: 25px 0;
+        }
+
+        .title::before, .title::after {
+            content: '';
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                transparent 10%,
+                var(--accent-soft) 50%,
+                transparent 90%,
+                transparent
+            );
+            box-shadow: 0 0 8px var(--accent-soft);
+        }
+
+        .title::before {
+            top: 0;
+        }
+
+        .title::after {
+            bottom: 0;
+        }
+
+        /* Remove any other neon lines */
+        .rule {
+            display: none;
+        }
+
+        .rule {
+            height: 2px;
+            width: 70%;
+            margin: 16px auto 0;
+            background: linear-gradient(90deg, transparent, var(--accent-soft), transparent);
+            box-shadow: 0 0 15px var(--accent-soft);
+        }
+
+        .subtitle {
+            text-align: center;
+            margin: 28px 0 8px;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        .name {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .program {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--highlight);
+            margin-top: 10px;
+        }
+
+        .section {
+            margin: 38px 0 10px;
+            text-align: center;
+        }
+
+        .section h3 {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #224d37;
+            border-radius: 4px;
+            font-family: "IBM Plex Mono", monospace;
+            color: #bfffd8;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(240px, 1fr));
+            gap: 10px 28px;
+            max-width: 760px;
+            margin: 18px auto 0;
+        }
+
+        .skills div {
+            color: #d5fbe7;
+            border-left: 3px solid rgba(57,255,20,.6);
+            padding-left: 10px;
+        }
+
+        .badge {
+            margin: 22px auto 0;
+            width: max-content;
+            padding: 10px 14px;
+            border: 1px solid #2b3f52;
+            border-radius: 10px;
+            color: #cfe7ff;
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .meta {
+            margin-top: 34px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px dashed #294a38;
+            padding-top: 18px;
+        }
+
+        .sig {
+            text-align: right;
+        }
+
+        .sig-name {
+            color: #bfffd8;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .sig-line {
+            height: 2px;
+            width: 180px;
+            background: #fff;
+            margin: 8px 0 8px auto;
+            border-radius: 2px;
+        }
+
+        .sig-title {
+            color: #b8c7d4;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="toolbar">
+            <button class="btn-accent" id="btnPng">Download PNG</button>
+            <button class="btn-primary" id="btnPdf">Download PDF</button>
+        </div>
+
+        <section id="certificate" class="canvas">
+            <header class="header">
+                <div class="kicker">Official Recognition</div>
+                <div class="title">Certificate of Achievement</div>
+                <div class="rule"></div>
+            </header>
+
+            <div class="subtitle">This certifies that</div>
+            <div class="name" id="certName"></div>
+            <div class="subtitle">has successfully completed the</div>
+            <div class="program">CYBERSEC CTF CHALLENGE 2025</div>
+
+            <div class="section"><h3>Demonstrated Skills</h3></div>
+            <div class="skills">
+                <div>HTML Source Analysis</div>
+                <div>Web Reconnaissance</div>
+                <div>Base64 Decoding</div>
+                <div>Classical Cryptography</div>
+                <div>Security Knowledge</div>
+            </div>
+
+            <div class="badge">Security Clearance: Granted</div>
+
+            <div class="meta">
+                <div>
+                    <div><strong>Issued:</strong> September 14, 2025</div>
+                    <div><strong>Credential ID:</strong> <span id="credId"></span></div>
+                </div>
+                <div class="sig">
+                    <div class="sig-name">Aniket Tegginamath</div>
+                    <div class="sig-line"></div>
+                    <div class="sig-title">CTF Administrator</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

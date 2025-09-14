@@ -19,6 +19,35 @@
     --font-mono: 'Source Code Pro', monospace;
 }
 
+.name-input {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.name-input label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--matrix-green);
+    font-family: var(--font-mono);
+}
+
+.name-input input {
+    background: rgba(0, 255, 65, 0.1);
+    border: 1px solid var(--matrix-green);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.name-input input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--matrix-green-glow);
+}
+
 * {
     margin: 0;
     padding: 0;
